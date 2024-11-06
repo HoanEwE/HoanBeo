@@ -1,91 +1,144 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đoạn Nhạc</title>
+    <title>Ấn Vào Đi</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom, #ffffff, #bbffbb);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-            color: #ffffff;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom, #ffffff, #ca78d6);
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+        #title {
+            font-size: 2em;
             font-weight: bold;
             text-align: center;
+            margin-bottom: 20px;
+            z-index: 1;
         }
-        h1 {
+        #clickButton, #okButton, #noButton {
+            padding: 10px 20px;
             font-size: 1.2em;
-            color: #ffffff;
-            text-shadow: 2px 2px 0 #bbffbb, -2px -2px 0 #bbffbb, 
-                         -2px 2px 0 #bbffbb, 2px -2px 0 #bbffbb;
-            white-space: pre-line;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            color: #fff;
+            background-color: #7b2b8d;
+            border-radius: 5px;
+            outline: none;
+            margin: 5px;
+            z-index: 1;
         }
-        audio {
+        #okButton, #noButton {
             display: none;
+        }
+        .heart {
+            position: absolute;
+            color: #ff69b4;
+            animation: floatUp 5s ease-in infinite;
+            cursor: pointer;
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>
-        Có khóc cũng thế thôi<br>
-        Khi tình yêu giờ đây<br>
-        Cũng đã bước qua thật rồi<br>
-        Cũng thế thôi, bao niềm tin giờ đây<br>
-        Cũng đã biến tan thật rồi<br>
-        Cũng thế thôi, ừ thì thế thôi<br>
-        Chỉ là những câu ta định nói, nhưng lại thôi<br>
-        Em chờ mong ngày mai sẽ không buồn<br>
-        Mà 3 giờ đêm lòng em vẫn đang buồn<br>
-        Vì em vẫn chưa thể buông những nghĩ suy khi con tim ngủ quên<br>
-        Giữ làm chi những câu nói trong đầu<br>
-        Khi tình yêu dần mang đến u sầu<br>
-        Thì thôi đừng mong chờ chi lời hứa hôm nào<br>
-        Một thoáng mơ mộng<br>
-        Rồi cũng hóa hư không<br>
-        Ừ thì chẳng sao<br>
-        Chẳng ra làm sao<br>
-        Nụ hôn úa tàn<br>
-        Anh biết phải làm sao?<br>
-        Một mình em giữa đêm<br>
-        Cố đau để quên<br>
-        Những kỉ niệm cũ<br>
-        Vẫn đang còn ướt<br>
-        Trên đôi mắt em dẫu ngủ say<br>
-        ♪<br>
-        Sao em lại khóc?<br>
-        Khi mà anh với em đang cười<br>
-        Sao anh lại khóc?<br>
-        Khi bàn tay nắm chưa buông rời<br>
-        Thật chua xót cho người kết thúc được tình yêu<br>
-        Mà không đớn đau<br>
-        Vì vốn dĩ họ chưa biết yêu<br>
-        Và niềm đau<br>
-        Họ xem nó như là trò chơi<br>
-        Em chờ mong nụ cười sẽ ươm mầm<br>
-        Anh thầm mong nụ hoa sẽ phai tàn<br>
-        Em và anh dường như vẫn thế<br>
-        Nhưng nỗi đau không còn nhau<br>
-        Cho dù tim mình đã quá mỏi mệt<br>
-        Cho dù giấc mơ cũng vỡ tan rồi<br>
-        Thì Em hãy nhớ rằng ta đã nắm tay nhau<br>
-        Cùng bước bên nhau<br>
-        Rồi bước qua nhau<br>
-        Ừ thì chẳng sao<br>
-        Chẳng ra làm sao<br>
-        Nụ hôn úa tàn<br>
-        Biết phải làm sao?<br>
-        Một mình em giữa đêm<br>
-        Cố đau để quên<br>
-        Những kỉ niệm cũ<br>
-        Vẫn đang còn ướt trên đôi mắt Em dẫu ngủ say
-    </h1>
-    <audio autoplay loop>
-        <source src="audio.mp3" type="audio/mpeg">
-        Trình duyệt của bạn không hỗ trợ audio tag.
-    </audio>
+    <div>
+        <div id="title">Ấn Vào Đi</div>
+        <button id="clickButton" onclick="changeText()">Click Here</button>
+        <button id="okButton" onclick="finalText('Ui bạn tốt của tuiiii')">Ok</button>
+        <button id="noButton" onclick="finalText('Hmuhu tui méc mẹ nè 😭')">Đéo</button>
+    </div>
+
+    <script>
+        const titleTexts = ["Bạn", "Gì", "Ơi", "Bạn", "Đồng", "Ý", "Làm", "Làm....", "Làm.........." ,"Làm Bài tập hộ mình nhé 🥰🫰"];
+        const buttonTexts = ["ấn tiếp", "tiếp nữa", "tiếp đi", "tiếpppp", "ấn đi hihi", "sắp ròi", "sắppp", "ấn cái nữa 🥰"];
+        let currentIndex = 0;
+
+        function changeText() {
+            if (currentIndex < titleTexts.length) {
+                document.getElementById("title").innerText = titleTexts[currentIndex];
+                
+                if (currentIndex < buttonTexts.length) {
+                    document.getElementById("clickButton").innerText = buttonTexts[currentIndex];
+                }
+
+                if (currentIndex === titleTexts.length - 1) {
+                    document.getElementById("clickButton").style.display = "none";
+                    document.getElementById("okButton").style.display = "inline-block";
+                    document.getElementById("noButton").style.display = "inline-block";
+                }
+                
+                currentIndex++;
+            }
+        }
+
+        function finalText(message) {
+            document.getElementById("title").innerText = message;
+            document.getElementById("okButton").style.display = "none";
+            document.getElementById("noButton").style.display = "none";
+        }
+
+        // Tạo hiệu ứng trái tim bay
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.innerText = "❤️";
+            heart.classList.add("heart");
+
+            // Vị trí và kích thước ngẫu nhiên cho trái tim
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = Math.random() * 1.5 + 1 + "em"; // Kích thước từ nhỏ đến lớn
+            heart.style.animationDuration = 3 + Math.random() * 2 + "s"; // Thời gian bay ngẫu nhiên
+            
+            // Gắn sự kiện click để tạo hiệu ứng nổ ra
+            heart.addEventListener("click", () => explodeHeart(heart));
+            
+            document.body.appendChild(heart);
+            
+            // Xóa trái tim sau khi bay lên
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Hiệu ứng nổ trái tim thành 5 trái tim nhỏ hơn
+        function explodeHeart(originalHeart) {
+            for (let i = 0; i < 5; i++) {
+                const miniHeart = document.createElement("div");
+                miniHeart.innerText = "💓";
+                miniHeart.classList.add("heart");
+                miniHeart.style.left = (parseFloat(originalHeart.style.left) + Math.random() * 5 - 2.5) + "vw";
+                miniHeart.style.top = originalHeart.offsetTop + "px";
+                miniHeart.style.fontSize = "1em";
+                miniHeart.style.animationDuration = 2 + Math.random() * 1 + "s"; // Thời gian bay ngắn hơn
+
+                document.body.appendChild(miniHeart);
+                
+                // Xóa trái tim nhỏ sau khi bay lên
+                setTimeout(() => {
+                    miniHeart.remove();
+                }, 2000);
+            }
+            originalHeart.remove(); // Xóa trái tim gốc sau khi nổ
+        }
+
+        // Tạo trái tim bay mỗi 500ms
+        setInterval(createHeart, 500);
+    </script>
 </body>
 </html>
