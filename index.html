@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMP SS5</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      width: 90%;
+      max-width: 600px;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      padding: 2rem;
+    }
+    .title-box {
+      background: linear-gradient(to right, #56ccf2, #2f80ed);
+      padding: 1.5rem;
+      border-radius: 15px;
+      margin-bottom: 1.5rem;
+      color: white;
+      font-size: 32px;
+      font-weight: bold;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    }
+    .subtitle {
+      font-size: 20px;
+      margin-top: 10px;
+      color: #555;
+    }
+    .platform-text {
+      font-size: 18px;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    .btn-container {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: space-around;
+    }
+    .btn {
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      background: linear-gradient(to right, #2f80ed, #56ccf2);
+      color: white;
+      border: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .btn:hover {
+      background: linear-gradient(to right, #56ccf2, #2f80ed);
+    }
+    .btn:focus {
+      outline: none;
+    }
+    .info-box {
+      display: none;
+      margin-top: 20px;
+      padding: 1rem;
+      background: #f1f8fc;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      font-size: 16px;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title-box">SMP SS5</div>
+    <div class="subtitle">Finally Out</div>
+    <div class="platform-text">Chọn Platform</div>
+    <div class="btn-container">
+      <button class="btn" onclick="showInfo('bedrock')">Bedrock</button>
+      <button class="btn" onclick="showInfo('java')">Java</button>
+    </div>
+    <div id="bedrock-info" class="info-box">
+      <p>IP: 147.185.221.24:7382</p>
+      <p>Port: 1283</p>
+    </div>
+    <div id="java-info" class="info-box">
+      <p>IP: 147.185.221.24:7382</p>
+    </div>
+    <div class="footer">4h/day - đổi IP thường xuyên</div>
+  </div>
+  <script>
+    function showInfo(platform) {
+      document.getElementById("bedrock-info").style.display = platform === 'bedrock' ? 'block' : 'none';
+      document.getElementById("java-info").style.display = platform === 'java' ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>
