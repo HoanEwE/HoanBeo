@@ -131,14 +131,14 @@
           },
           body: JSON.stringify({
             host: "147.185.221.24:1283",
-            type: "bedrock"
+            type: "bedrock"  // Loại server có thể là 'java' hoặc 'bedrock'
           })
         });
 
         const result = await response.json();
-        if (result[1]?.online) {
+        if (result.online) {
           statusText.textContent = "Trạng thái: ON";
-          playersText.textContent = `Online: ${result[1].players.online}`;
+          playersText.textContent = `Online: ${result.players.online}`;
         } else {
           statusText.textContent = "Trạng thái: OFF";
           playersText.textContent = "Online: 0";
