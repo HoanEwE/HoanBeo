@@ -90,13 +90,18 @@
     <div class="btn-container">
       <button class="btn" onclick="showInfo('bedrock')">Bedrock</button>
       <button class="btn" onclick="showInfo('java')">Java</button>
+      <button class="btn" onclick="checkStatus()">Trạng Thái</button>
     </div>
     <div id="bedrock-info" class="info-box">
-      <p>IP: 147.185.221.24</p>
+      <p>IP: 147.185.221.24:7382</p>
       <p>Port: 1283</p>
     </div>
     <div id="java-info" class="info-box">
       <p>IP: 147.185.221.24:7382</p>
+    </div>
+    <div id="status-info" class="info-box">
+      <p id="status">Trạng thái: Đang kiểm tra...</p>
+      <p id="players">Online: Đang kiểm tra...</p>
     </div>
     <div class="footer">4h/day - đổi IP thường xuyên</div>
   </div>
@@ -104,6 +109,45 @@
     function showInfo(platform) {
       document.getElementById("bedrock-info").style.display = platform === 'bedrock' ? 'block' : 'none';
       document.getElementById("java-info").style.display = platform === 'java' ? 'block' : 'none';
+      document.getElementById("status-info").style.display = 'none';
+    }
+
+    async function checkStatus() {
+      const statusInfo = document.getElementById("status-info");
+      const statusText = document.getElementById("status");
+      const playersText = document.getElementById("players");
+
+      statusText.textContent = "Trạng thái: Đang kiểm tra...";
+      playersText.textContent = "Online: Đang kiểm tra...";
+      statusInfo.style.display = "block";
+
+      try {
+        const response = await fetch("https://minecraft-server-status1.p.rapidapi.com/servers/single/full", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Rapidapi-Key": "2b10a67b8amsh7ad2cdd8ef9beeap1d7deajsn793fc2e953d2",
+            "X-Rapidapi-Host": "minecraft-server-status1.p.rapidapi.com"
+          },
+          body: JSON.stringify({
+            host: "147.185.221.24:1283",
+            type: "bedrock"
+          })
+        });
+
+        const result = await response.json();
+        if (result[1]?.online) {
+          statusText.textContent = "Trạng thái: ON";
+          playersText.textContent = `Online: ${result[1].players.online}`;
+        } else {
+          statusText.textContent = "Trạng thái: OFF";
+          playersText.textContent = "Online: 0";
+        }
+      } catch (error) {
+        statusText.textContent = "Trạng thái: Lỗi kiểm tra!";
+        playersText.textContent = "Online: -";
+        console.error(error);
+      }
     }
   </script>
 </body>
